@@ -59,6 +59,22 @@ class InvoiceLineItemInline(admin.TabularInline):
     line_total.short_description = "Line Total"
 
 
+class OverdueInvoiceFilter(admin.SimpleListFilter):
+    title = "Overdue & High-Value Invoices"
+    parameter_name = "overdue_high_value"
+
+    def lookups(self, request, model_admin):
+        return [
+            ("overdue_high", "Overdue Invoices Above $1000"),
+        ]
+
+    def queryset(self, request, queryset):
+        if self.value() == "overdue_high":
+            return queryset.annotate(
+                total=Sum(F("line_items__quantity") * F("line_items__price_each"))
+            ).filter(is_overdue=True, total__gt=1000)
+
+
 @admin.register(Invoice)
 class InvoiceAdmin(admin.ModelAdmin):
     list_display = (
@@ -68,7 +84,7 @@ class InvoiceAdmin(admin.ModelAdmin):
         "calculated_total",
         "print_invoice",
     )
-    list_filter = ("is_paid",)
+    list_filter = ("is_paid", OverdueInvoiceFilter)
     inlines = [InvoiceLineItemInline]
     actions = ["mark_as_paid", "export_invoice_to_xlsx"]
 
