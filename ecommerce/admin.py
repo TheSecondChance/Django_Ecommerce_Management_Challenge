@@ -3,6 +3,7 @@ from django.utils.html import format_html
 from django.db.models import Sum, F, Case, When, BooleanField
 from django.http import HttpResponse
 from django.utils import timezone
+from django.urls import reverse
 from openpyxl import Workbook
 from .models import (
     Product,
@@ -65,10 +66,17 @@ class InvoiceAdmin(admin.ModelAdmin):
         "invoice_date",
         "colored_status",
         "calculated_total",
+        "print_invoice",
     )
     list_filter = ("is_paid",)
     inlines = [InvoiceLineItemInline]
     actions = ["mark_as_paid", "export_invoice_to_xlsx"]
+
+    def print_invoice(self, obj):
+        url = reverse("ecommerce:print_invoice", args=[obj.id])
+        return format_html('<a href="{}" target="_blank">🖨️ Print</a>', url)
+
+    print_invoice.short_description = "Print Invoice"
 
     def get_queryset(self, request):
         return (

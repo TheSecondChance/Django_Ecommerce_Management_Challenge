@@ -1,0 +1,129 @@
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  color: #1a202c;
+  max-width: 800px;
+  margin: 0.1rem auto;
+  padding: 1rem;
+  background-color: #f7fafc;
+}
+
+.invoice-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 2.5rem;
+}
+
+.header-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 1.5rem;
+}
+
+.company-info h1 {
+  color: var(--primary-color);
+  font-size: 1.875rem;
+  margin: 0 0 0.5rem 0;
+  font-weight: 700;
+}
+
+.invoice-meta {
+  text-align: right;
+}
+
+.invoice-title {
+  font-size: 1.5rem;
+  color: var(--secondary-color);
+  margin: 0 0 0.75rem 0;
+}
+
+.invoice-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+.invoice-table thead {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.invoice-table th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+}
+
+.invoice-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--accent-color);
+}
+
+.invoice-table tr:nth-child(even) {
+  background-color: #f8fafc;
+}
+
+.total-section {
+  text-align: right;
+  margin-top: 2rem;
+  font-size: 1.125rem;
+}
+
+.total-amount {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 0.5rem;
+}
+
+.print-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.print-button:hover {
+  background-color: #2c5282;
+}
+
+.print-button-container {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+@media print {
+  body {
+    background: white;
+    padding: 0;
+  }
+
+  .print-button {
+    display: none;
+  }
+
+  .invoice-container {
+    box-shadow: none;
+    padding: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .header-section {
+    grid-template-columns: 1fr;
+  }
+
+  .invoice-meta {
+    text-align: left;
+  }
+}
