@@ -32,6 +32,7 @@ class PurchaseOrderLineItemInline(admin.TabularInline):
 @admin.register(PurchaseOrder)
 class PurchaseOrderAdmin(admin.ModelAdmin):
     list_display = ("vendor_name", "order_date", "status", "calculated_total")
+    list_per_page = 10
     inlines = [PurchaseOrderLineItemInline]
 
     def get_queryset(self, request):
@@ -86,6 +87,7 @@ class InvoiceAdmin(admin.ModelAdmin):
         "calculated_total",
         "print_invoice",
     )
+    list_per_page = 10
     list_filter = ("is_paid", OverdueInvoiceFilter)
     inlines = [InvoiceLineItemInline]
     actions = ["mark_as_paid", "export_invoice_to_xlsx"]
