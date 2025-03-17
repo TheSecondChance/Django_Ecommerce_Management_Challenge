@@ -14,6 +14,8 @@ from .models import (
 )
 
 admin.site.register(Product)
+admin.site.site_header = "Ecommerce Admin"
+admin.site.index_title = "Ecommerce Management Dashboard"
 
 
 class PurchaseOrderLineItemInline(admin.TabularInline):
